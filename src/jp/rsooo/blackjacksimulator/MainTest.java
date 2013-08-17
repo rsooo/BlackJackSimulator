@@ -1,5 +1,6 @@
 package jp.rsooo.blackjacksimulator;
 
+
 import jp.rsooo.blackjacksimulator.etc.ObjTest2;
 
 public class MainTest {
