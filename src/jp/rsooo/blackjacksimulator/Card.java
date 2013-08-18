@@ -48,19 +48,19 @@ public class Card
         card_back = ImageIO.read(new File("data/card_back.png"));
     }
 
-    Card(Card.Suit s, Card.Rank r)
+    public Card(Card.Suit s, Card.Rank r)
     {
         suit = s;
         rank = r;
     }
 
-    Card()
+    public Card()
     {
         suit = Suit.SPADES;
         rank = Rank.TWO;
     }
 
-    int Value()
+    public int Value()
     {
         return Value(rank);
     }
