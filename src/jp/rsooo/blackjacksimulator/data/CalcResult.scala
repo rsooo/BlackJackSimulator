@@ -85,9 +85,13 @@ object CalcResult {
         case Some(f) => f
         case None    => 0.0
       }
-      "%1.2f/%1.2f/%1.2f/%1.2f" format (hit, stand, double, split)
+//      "%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split)
+      ("%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split))
     }
 
+    def getBest : Double = {
+      node.valuesIterator.max
+    }
   }
 
 

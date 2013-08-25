@@ -19,29 +19,35 @@ object MainTrial extends App{
   val result = new HashMap[Const.Choice, Double]
 
   def mainTrial = {
-    val playerHand = new Hand();
-    val card = new Card(Card.SuitByID(0), Card.RankByNum(10));
-    val card2 = new Card(Card.SuitByID(0), Card.RankByNum(10));
+//    val playerHand = new Hand();
+//    val card = new Card(Card.SuitByID(0), Card.RankByNum(10));
+//    val card2 = new Card(Card.SuitByID(0), Card.RankByNum(10));
 
-
-    playerHand.addCard(card).addCard(card2);
-    println(playerHand.toString)
+//
+//    playerHand.addCard(card).addCard(card2);
+//    println(playerHand.toString)
 
     val trial = new Trial;
-    trial.trial(10000, playerHand,10, Const.Choice.HIT);
+//    trial.trial(10000, playerHand,10, Const.Choice.HIT);
 
+    for(playerCardNum <- (8 to 20).reverse){
+      val playerHand = createHand(playerCardNum)
 
-    val resultRow = new ResultRow
-    for(i <- 1 to 10){
-      val hitExpect = trial.trial(10000, playerHand,i, Const.Choice.HIT);
-      val standExpect = trial.trial(10000, playerHand,i, Const.Choice.STAND);
-      val resultNode = new ResultNode;
-      resultNode.node.put(Const.Choice.HIT,hitExpect)
-      resultNode.node.put(Const.Choice.STAND,standExpect)
-      resultRow.resultRow.put(i, resultNode)
+      val resultRow = new ResultRow
+      for(i <- 1 to 10){
+        val hitExpect = trial.trial(10000, playerHand,i, Const.Choice.HIT);
+        val standExpect = trial.trial(10000, playerHand,i, Const.Choice.STAND);
+        val resultNode = new ResultNode;
+        resultNode.node.put(Const.Choice.HIT,hitExpect)
+        resultNode.node.put(Const.Choice.STAND,standExpect)
+        resultRow.resultRow.put(i, resultNode)
+      }
+
+      CalcResult.result.put(playerCardNum, resultRow)
+
     }
-    resultRow.printData
-    CalcResult.result.put(20, resultRow)
+
+//    resultRow.printData
     CalcResult.printData
 //   print ( "%1.2f,%1.2f" format (1.23456, 2.991))
 
@@ -52,4 +58,13 @@ object MainTrial extends App{
 //      println (b._1 + " " + b._2)
   }
 
+  private def createHand(num : Int) : Hand = {
+    val num1 = num /2
+    val num2 = num /2 + num % 2
+
+    val playerHand = new Hand();
+    val card = new Card(Card.SuitByID(0), Card.RankByNum(num1));
+    val card2 = new Card(Card.SuitByID(0), Card.RankByNum(num2));
+    playerHand.addCard(card).addCard(card2);
+  }
 }

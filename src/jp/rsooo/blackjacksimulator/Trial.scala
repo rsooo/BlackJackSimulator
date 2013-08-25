@@ -1,10 +1,10 @@
 package jp.rsooo.blackjacksimulator
 
-import jp.rsooo.blackjacksimulator.data.Card
+import jp.rsooo.blackjacksimulator.data.{CalcResult, Card}
 
 class Trial() {
 
-  val Bet : Int = 10;
+  val Bet : Int = 1;
 
   def trial(num : Int, playerInitHand : Hand, upcardnum : Int, strategy : Const.Choice) : Double = {
 //		 val bet : Int = 1 
@@ -19,7 +19,11 @@ class Trial() {
 //       println("dealerHand" + dealerHand.toString)
          if(strategy == Const.Choice.HIT){
            val playerHitHand = new Hand(SimpleDeck.pickCard() :: playerInitHand.cards)
-           expectation += compareHand(dealerHand, playerHitHand, Bet)
+           if (playerHitHand.eval() < 21){
+             expectation += CalcResult.result.get(playerHitHand.eval()).get.resultRow.get(upcardnum).get.getBest
+           }else{
+             expectation += compareHand(dealerHand, playerHitHand, Bet)
+           }
          }
          else if(strategy.equals(Const.Choice.STAND)){
            expectation += compareHand(dealerHand, playerInitHand, Bet)
@@ -33,7 +37,7 @@ class Trial() {
 		 }
 	  	 
 	  	//print (expectation / num - Bet)
-    expectation / num - Bet
+    expectation / num
   }
   
   def compareHand(dealerHand : Hand, playerHand : Hand, bet : Int) : Double = {
