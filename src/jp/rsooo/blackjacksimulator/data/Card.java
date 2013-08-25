@@ -1,4 +1,4 @@
-package jp.rsooo.blackjacksimulator;
+package jp.rsooo.blackjacksimulator.data;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -115,7 +115,7 @@ public class Card
         return 0;
     }
 
-    static Card.Rank RankByID(int v)
+    public static Card.Rank RankByID(int v)
     {
         switch(v)
         {
@@ -136,7 +136,30 @@ public class Card
         return Card.Rank.TWO;
     }
 
-    static Card.Suit SuitByID(int v)
+    public static Card.Rank RankByNum(int v)
+    {
+        switch(v)
+        {
+            case 1:         return Card.Rank.ACE;
+            case 2:         return Card.Rank.TWO;
+            case 3:         return Card.Rank.THREE;
+            case 4:         return Card.Rank.FOUR;
+            case 5:         return Card.Rank.FIVE;
+            case 6:         return Card.Rank.SIX;
+            case 7:         return Card.Rank.SEVEN;
+            case 8:         return Card.Rank.EIGHT;
+            case 9:         return Card.Rank.NINE;
+            case 10:         return Card.Rank.TEN;
+            case 11:         return Card.Rank.JACK;
+            case 12:        return Card.Rank.QUEEN;
+            case 13:        return Card.Rank.KING;
+        }
+        return Card.Rank.TWO;
+    }
+
+
+
+    public static Card.Suit SuitByID(int v)
     {
         switch(v)
         {
@@ -148,7 +171,7 @@ public class Card
         return Card.Suit.SPADES;
     }
 
-    static int IDBySuit(Card.Suit v)
+    public static int IDBySuit(Card.Suit v)
     {
         switch(v)
         {
@@ -160,7 +183,7 @@ public class Card
         return 0;
     }
 
-    static String StringByRank(Card.Rank v)
+    public static String StringByRank(Card.Rank v)
     {
         switch(v)
         {
@@ -181,7 +204,7 @@ public class Card
         return "";
     }
 
-    static String StringBySuit(Card.Suit s)
+    public static String StringBySuit(Card.Suit s)
     {
         switch(s)
         {
@@ -193,17 +216,17 @@ public class Card
         return "";
     }
 
-    static String StringByCard(Card c)
+    public static String StringByCard(Card c)
     {
         return c.RankString() + " of " + c.SuitString();
     }
 
-    static int Value(Card.Rank v)
+    public static int Value(Card.Rank v)
     {
         return Value(v, false);
     }
 
-    static int Value(Card.Rank v, boolean ace_is_one)
+    public static int Value(Card.Rank v, boolean ace_is_one)
     {
         switch(v)
         {
@@ -222,6 +245,10 @@ public class Card
             case ACE:       return ace_is_one ? 1 : 11;
         }
         return 0;
+    }
+
+    public String toString(){
+        return StringByCard(this);
     }
 
 }

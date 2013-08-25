@@ -1,17 +1,22 @@
 package jp.rsooo.blackjacksimulator
 
-class Hand(card : Card) {
-  if (card != null) {
-	  this.addCard(card)
-  }
-  
-  def this() = this(null)
-  
-  var cards:List[Card] = List();
- 
+import jp.rsooo.blackjacksimulator.data.Card
+
+class Hand(c : List[Card]) {
+  var cards:List[Card] = c;
+
+  def this() = this(Nil)
+//  def this(cards : List[Card]) = {
+//
+//  }
+
   def eval() : Int = {
     eval(cards)
   }
+
+//  def evelWithCard(newCard: Card) : Int = {
+//    eval(newCard :: cards)
+//  }
   
   private def eval(cards:List[Card]) : Int = {
 //    println("eval Ace" + countAce(cards))
@@ -68,4 +73,7 @@ class Hand(card : Card) {
     return false
   }
 
+  override def toString : String = {
+    cards.mkString("[", ",", "]")
+  }
 }

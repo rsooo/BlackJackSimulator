@@ -1,9 +1,10 @@
 package jp.rsooo.blackjacksimulator
 import java.util.EnumSet
 import java.util.Random
+import jp.rsooo.blackjacksimulator.data.Card
 
 /**
- * Å‚à’Pƒ‚ÈƒfƒbƒL
+ * ï¿½Å‚ï¿½ï¿½Pï¿½ï¿½ï¿½Èƒfï¿½bï¿½L
  */
 object SimpleDeck extends Shoe {
     

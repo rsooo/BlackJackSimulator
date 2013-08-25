@@ -2,13 +2,17 @@ package jp.rsooo.blackjacksimulator.test
 
 import org.junit._
 import Assert._
-import jp.rsooo.blackjacksimulator.Hand
-import jp.rsooo.blackjacksimulator.Card
+import org.junit.Test
+
+import jp.rsooo.blackjacksimulator.{Const, DealerStrategy, SimpleDeck, Hand}
+import jp.rsooo.blackjacksimulator.data.{CalcResult, Card}
+import scala.collection.mutable
+import jp.rsooo.blackjacksimulator.data.CalcResult.ResultNode
 
 
 class testHand {
 
-  @Test def testHand{
+  @Test def testHand = {
     val hand:Hand = new Hand()
     hand.addCard(new Card(Card.Suit.CLUBS,Card.Rank.KING))
     hand.addCard(new Card(Card.Suit.CLUBS,Card.Rank.ACE))
@@ -35,5 +39,27 @@ class testHand {
     assertEquals(14,hand3.eval())
     assertEquals(false,hand3.isHardHand())
     
+  }
+
+  @Test def testDealerHand = {
+    val hand:Hand = new Hand()
+    hand.addCard(new Card(Card.Suit.CLUBS,Card.Rank.SIX))
+    assertEquals( hand.eval() , 6 )
+    val d : DealerStrategy = new DealerStrategy()
+    println(d.makeHand(hand).eval())
+  }
+
+  @Test def hoge = {
+    val hoge = new mutable.HashMap[String, Any]
+    hoge += ("hoge" -> 1)
+
+    val a : ResultNode = new ResultNode
+    a.node += (Const.Choice.HIT -> 0.5)
+    a.node += (Const.Choice.STAND -> 1.5)
+    a.node += (Const.Choice.SPLIT -> 0.2)
+    a.printData()
+
+
+
   }
 }

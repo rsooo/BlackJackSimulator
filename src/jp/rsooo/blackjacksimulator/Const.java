@@ -8,4 +8,11 @@ public class Const {
 	public enum GameState{
 		BET, PLAY, SHOW_DOWN, FINISHED
 	}
+
+    public static final int HARDHAND = 0;
+    public static final int SOFTHAND = 1;
+
+//    public enum HandType{
+//        SOFT, HARD
+//    }
 }

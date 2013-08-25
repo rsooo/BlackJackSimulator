@@ -25,6 +25,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="org.scala-ide.sdt.launching.SCALA_CONTAINER" level="application" />
     <orderEntry type="library" name="scala-library" level="project" />
+    <orderEntry type="library" name="junit" level="project" />
   </component>
 </module>
 
