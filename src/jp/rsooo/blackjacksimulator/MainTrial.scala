@@ -34,13 +34,16 @@ object MainTrial extends App{
       val playerHand = createHand(playerCardNum)
 
       val resultRow = new ResultRow
-      for(i <- 1 to 10){
-        val hitExpect = trial.trial(10000, playerHand,i, Const.Choice.HIT);
-        val standExpect = trial.trial(10000, playerHand,i, Const.Choice.STAND);
+      for(upcard <- 2 to 11){
+        val hitExpect = trial.trial(10000, playerHand,upcard, Const.Choice.HIT);
+        val standExpect = trial.trial(10000, playerHand,upcard, Const.Choice.STAND);
+        val doubleExpect = trial.trial(10000, playerHand,upcard, Const.Choice.DOUBLE);
+
         val resultNode = new ResultNode;
         resultNode.node.put(Const.Choice.HIT,hitExpect)
         resultNode.node.put(Const.Choice.STAND,standExpect)
-        resultRow.resultRow.put(i, resultNode)
+        resultNode.node.put(Const.Choice.DOUBLE,doubleExpect)
+        resultRow.resultRow.put(upcard, resultNode)
       }
 
       CalcResult.result.put(playerCardNum, resultRow)

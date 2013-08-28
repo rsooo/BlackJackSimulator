@@ -48,7 +48,7 @@ object CalcResult {
       Sorting.stableSort(array)
       var retString = ""
       for(key <- array){
-        retString += (resultRow.get(key) match {
+        retString += key + "$" + (resultRow.get(key) match {
           case Some(node) => node.toString
           case None => "Something wrong"
         })
@@ -86,7 +86,9 @@ object CalcResult {
         case None    => 0.0
       }
 //      "%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split)
-      ("%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split))
+//      ("%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split))
+      ("%1.2f/%1.2f/%1.2f" format (hit, stand, double))
+
     }
 
     def getBest : Double = {

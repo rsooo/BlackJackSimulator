@@ -8,7 +8,7 @@ class Trial() {
 
   def trial(num : Int, playerInitHand : Hand, upcardnum : Int, strategy : Const.Choice) : Double = {
 //		 val bet : Int = 1 
-	  	 val upCard : Card = new Card(Card.SuitByID(0), Card.RankByID(upcardnum))
+	  	 val upCard : Card = new Card(Card.SuitByID(0), Card.RankByNum(upcardnum))
 //	  	 println(upCard.toString)
 	  	 var expectation : Double = 0.0
 	  	 //stand
@@ -27,6 +27,10 @@ class Trial() {
          }
          else if(strategy.equals(Const.Choice.STAND)){
            expectation += compareHand(dealerHand, playerInitHand, Bet)
+         }else if(strategy.equals(Const.Choice.DOUBLE)){
+           val playerHitHand = new Hand(SimpleDeck.pickCard() :: playerInitHand.cards)
+           expectation += compareHand(dealerHand, playerHitHand, Bet * 2)
+
          }else{
            println ("wrong status")
          }
@@ -48,13 +52,13 @@ class Trial() {
 //	    case 
 //	  }
 //    println(playerVal)
-	  if(playerVal > 21) return 0.0
-	  else if(dealerVal._1 > 21) if(playerHand.isBlackJack()) return bet * 2.5 else return bet * 2.0  
-	  else if(playerHand.isBlackJack()) if(dealerHand.isBlackJack()) return bet else return bet * 2.5
-	  else if(dealerHand.isBlackJack()) if(playerHand.isBlackJack()) return bet else return 0.0
-	  else if(dealerVal._1 > playerVal) return 0.0
-	  else if(dealerVal._1 < playerVal) return bet * 2.0
-	  else return bet
+	  if(playerVal > 21) return -bet
+	  else if(dealerVal._1 > 21) if(playerHand.isBlackJack()) return bet * 1.5 else return bet
+	  else if(playerHand.isBlackJack()) if(dealerHand.isBlackJack()) return bet else return bet
+	  else if(dealerHand.isBlackJack()) if(playerHand.isBlackJack()) return bet else return -bet
+	  else if(dealerVal._1 > playerVal) return -bet
+	  else if(dealerVal._1 < playerVal) return bet
+	  else return 0
   }
   
   	def getDealerValue(dealerHand : Hand) : (Int, Hand) = {
