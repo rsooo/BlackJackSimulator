@@ -20,7 +20,7 @@ class Trial() {
          if(strategy == Const.Choice.HIT){
            val playerHitHand = new Hand(SimpleDeck.pickCard() :: playerInitHand.cards)
            if (playerHitHand.eval() < 21){
-             expectation += CalcResult.result.get(playerHitHand.eval()).get.resultRow.get(upcardnum).get.getBest
+             expectation += CalcResult.result.get( (playerHitHand.eval(), playerHitHand.handType) ).get.resultRow.get(upcardnum).get.getBest
            }else{
              expectation += compareHand(dealerHand, playerHitHand, Bet)
            }
@@ -31,9 +31,27 @@ class Trial() {
            val playerHitHand = new Hand(SimpleDeck.pickCard() :: playerInitHand.cards)
            expectation += compareHand(dealerHand, playerHitHand, Bet * 2)
 
+         }else if(strategy.equals(Const.Choice.SPLIT)){
+           val splistHands = playerInitHand.splist()
+           val hand1 = new Hand(SimpleDeck.pickCard() :: splistHands._1.cards)
+           val hand2 = new Hand(SimpleDeck.pickCard() :: splistHands._2.cards)
+           if(hand1.eval() < 21){
+             expectation += CalcResult.result.get( (hand1.eval(), hand1.handType) ).get.resultRow.get(upcardnum).get.getBest
+           }else{
+             expectation += compareHand(dealerHand, hand1, Bet)
+           }
+//           println(hand1.eval() + " " + hand1.handType )
+//           println(hand2.eval() + " " + hand2.handType )
+           if(hand2.eval() < 21){
+             expectation += CalcResult.result.get( (hand2.eval(), hand2.handType) ).get.resultRow.get(upcardnum).get.getBest
+           }else{
+             expectation += compareHand(dealerHand, hand2, Bet)
+           }
+
          }else{
            println ("wrong status")
          }
+
 
        //val dHand = strategy.makeHand(dealerHand)
       // println(dHand.eval())

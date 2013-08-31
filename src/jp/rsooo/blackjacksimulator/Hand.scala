@@ -57,10 +57,13 @@ class Hand(c : List[Card]) {
   }
   
   def isHardHand() : Boolean = {
+    if (countAce(cards) == 0) return true
+
     val fullsum = calcFullSum(cards)
 //    println("Ace " + countAce(cards))
 //    println("val:" + (fullsum - 10 * countAce(cards)) + ":" + eval())
-    fullsum - 10 * countAce(cards) == eval()
+//    print (countAce(cards))
+    (fullsum - 10 * countAce(cards)) > 11
   }
   
   def initHand() = {
@@ -73,7 +76,24 @@ class Hand(c : List[Card]) {
     return false
   }
 
+  def handType = {
+    if (isHardHand) Const.HARDHAND else{
+      //print ("softhand" + this.eval().toString)
+      Const.SOFTHAND
+    }
+  }
+
   override def toString : String = {
     cards.mkString("[", ",", "]")
+  }
+
+  def splist() : (Hand, Hand) = {
+    if(cards.length != 2){
+      print("something wrong")
+      return (null,null)
+    }
+    val cards1 = List(cards.apply(0))
+    val cards2 = List(cards.apply(1))
+    (new Hand(cards1), new Hand(cards2))
   }
 }

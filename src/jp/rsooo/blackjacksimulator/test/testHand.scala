@@ -50,16 +50,6 @@ class testHand {
   }
 
   @Test def hoge = {
-    val hoge = new mutable.HashMap[String, Any]
-    hoge += ("hoge" -> 1)
-
-    val a : ResultNode = new ResultNode
-    a.node += (Const.Choice.HIT -> 0.5)
-    a.node += (Const.Choice.STAND -> 1.5)
-    a.node += (Const.Choice.SPLIT -> 0.2)
-    a.printData()
-
-
 
   }
 }

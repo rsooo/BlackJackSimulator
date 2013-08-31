@@ -13,7 +13,7 @@ object SimpleDeck extends Shoe {
     
 	def pickCard() : Card = {
 			var suit = rand.nextInt(4)
-			var rank = rand.nextInt(14)
+			var rank = rand.nextInt(13)
 			new Card(Card.SuitByID(suit), Card.RankByID(rank))
 	}
     
