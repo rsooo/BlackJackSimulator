@@ -28,11 +28,11 @@ object CalcResult {
     var retString = ""
     for(key <- array){
       val htype = key._2 match {
-        case Const.HARDHAND => "H"
-        case Const.SOFTHAND => "S"
-        case Const.SPLITABLE => "SP"
+        case Const.HARDHAND => "H  "
+        case Const.SOFTHAND => "S  "
+        case Const.SPLITABLE => "SP "
       }
-      retString += key._1.toString + htype +  "# "
+      retString += ("%2d" format key._1) + htype +  "# "
       retString += (result.get(key) match {
         case Some(node) => node.toString
         case None => "Something wrong"
@@ -51,7 +51,6 @@ object CalcResult {
     }
     override def  toString = {
       val array = resultRow.keySet.toArray
-//      Sorting.stableSort((x : (Int,Int), y : (Int,Int)) => x._2 < y._2 || x._2 == y._2 && x._1 < y._1)
       Sorting.stableSort(array)
       var retString = ""
       for(key <- array){
@@ -63,8 +62,22 @@ object CalcResult {
       }
       retString
     }
-
   }
+
+//  def toString(choice : Const.Choice) = {
+//    val array = resultRow.keySet.toArray
+//    Sorting.stableSort(array)
+//    var retString = ""
+//    for(key <- array){
+//      retString +=  (resultRow.get(key) match {
+//        case Some(node) => node.toString(choice)
+//        case None => "Something wrong"
+//      })
+//      retString += " "
+//    }
+//    retString
+//  }
+
 
   class ResultNode{
     var node  = new mutable.HashMap[Const.Choice, Double]
@@ -73,6 +86,14 @@ object CalcResult {
       println(this.toString)
 //      print (hit + "/" + stand + "/" + double + "/" + split);
       //printfにする
+    }
+
+    def toString(choice : Const.Choice) : String = {
+      val ret = node.get(choice) match {
+        case Some(f) => f
+        case None    => 0.0
+      }
+      ("%+1.3f" format ret)
     }
 
     override def toString = {
@@ -94,8 +115,8 @@ object CalcResult {
         case None    => 0.0
       }
       node.get(Const.Choice.SPLIT) match {
-        case Some(f) =>  ("%1.3f" format split)
-        case None =>      ("%1.3f/%1.3f/%1.3f" format (hit, stand, double))
+        case Some(f) =>  ("%+1.3f" format split)
+        case None =>      ("%+1.3f/%+1.3f/%+1.3f" format (hit, stand, double))
       }
 
 //      "%1.2f_%1.2f_%1.2f_%1.2f" format (hit, stand, double, split)
